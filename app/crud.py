@@ -7,4 +7,13 @@ def create_transaction(amount, description, category):
         return new_transaction
     
 def save_transaction(transaction: Transaction):
-    pass
+    with get_db() as db:
+        try:
+            db.add(transaction)
+            db.commit()
+            db.refresh(transaction)
+            return transaction
+        except Exception as e:
+            db.rollback()
+            print(f"Error saving transaction: {e}")
+            return None
