@@ -1,5 +1,5 @@
 import streamlit as st
-from app.crud import create_transaction
+from app.crud import create_transaction, save_transaction
 from app.config import CATEGORIES
 
 
@@ -9,8 +9,14 @@ category = st.selectbox("Category", options=CATEGORIES)
 
 if st.button("Add Transaction"):
     transaction = create_transaction(amount, description, category)
+
+    transaction = save_transaction(transaction)
+    
     if transaction:
         st.success("Transaction added successfully!")
     else:
         st.error("Failed to add transaction. Please check your input.")
+
+
+
 
