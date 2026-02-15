@@ -28,6 +28,9 @@ if __name__ == "__main__":
     st.title("Persistent Finance Tracker")
     st.info(f"Connected to: **{st.session_state.db_name}**")
     
+    if st.session_state.db_name == "mock.db":
+        st.warning("⚠️ **Demo Mode:** You are viewing randomly generated mock data. No changes will be saved to your primary database.")
+    
     transactions = get_all_transactions()
     
     if transactions:
@@ -80,16 +83,22 @@ if __name__ == "__main__":
                 x=range(len(df_balance)), 
                 y="Current Balance",
                 markers=True, 
-                title=f"Balance History ({filter_option})"
+                title=f"Balance History ({filter_option})",
+                hover_data={"Date_Str": True}
             )
             
             fig_balance.update_layout(
-                height=400,
+                height=500,
                 xaxis=dict(
+                    tickangle=-45,
+                    nticks=10,
+                    rangeslider=dict(visible=True),
                     tickmode='array',
                     tickvals=list(range(len(df_balance))),
-                    ticktext=df_balance["Date_Str"]
-                )
+                    ticktext=df_balance["Date_Str"],
+                    title="Transaction Timeline"
+                ),
+                yaxis=dict(title="Balance (PLN)")
             )
             st.plotly_chart(fig_balance, use_container_width=True)
 
