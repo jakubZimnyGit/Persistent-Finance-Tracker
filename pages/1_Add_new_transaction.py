@@ -11,12 +11,11 @@ if st.button("Add Transaction"):
     transaction = create_transaction(amount, description, category)
 
     transaction = save_transaction(transaction)
-    
+
     if transaction:
         st.success("Transaction added successfully!")
     else:
         st.error("Failed to add transaction. Please check your input.")
-
 
 
 

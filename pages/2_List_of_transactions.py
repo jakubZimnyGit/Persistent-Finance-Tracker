@@ -1,6 +1,3 @@
-from click import edit
-from narwhals import col
-from numpy import delete
 import streamlit as st
 import pandas as pd
 from app.crud import get_all_transactions, update_transaction_amount, delete_transaction
@@ -33,7 +30,6 @@ if transactions:
                 format_func=lambda x: f"{x.description} ({x.amount})"
             )
 
-            # Logika potwierdzenia (Twoje Yes/No)
         if st.button("Delete Selected", type="primary", use_container_width=True):
             st.session_state["confirm_delete"] = True
         if st.session_state.get("confirm_delete"):
@@ -64,12 +60,9 @@ if transactions:
 
                 st.rerun()
             st.success("Changes saved!")
-
-
+            
 else:
-    # Wiadomość dla użytkownika, gdy baza jest pusta
     st.info("No transactions found. Please add some transactions to see them here.")
     
-    # Opcjonalnie: możesz w sidebarze wyświetlić info, że nie ma czego usuwać
     with st.sidebar:
         st.write("No actions available to perform.")
