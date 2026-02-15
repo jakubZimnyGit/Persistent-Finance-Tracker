@@ -12,6 +12,10 @@ def create_transaction(amount, description, category):
 def save_transaction(transaction: Transaction):
     with get_db() as db:
         try:
+            if transaction.category != "Income":
+                transaction.amount = -abs(transaction.amount)
+            else:
+                transaction.amount = abs(transaction.amount)
             db.add(transaction)
             db.commit()
             db.refresh(transaction)
@@ -47,6 +51,11 @@ def update_transaction_amount(transaction_id: int, amount: float):
     with get_db() as db:
         try:
             transaction = db.query(Transaction).filter(Transaction.id == transaction_id).first()
+            if transaction:
+                if transaction.category != "Income":
+                    transaction.amount = -abs(amount)
+                else:
+                    transaction.amount = abs(amount)
             if transaction:
                 transaction.amount = amount
                 db.commit()
