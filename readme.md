@@ -1,3 +1,5 @@
+![Tests Status](https://github.com/jakubZimnyGit/Persistent-Finance-Tracker/actions/workflows/tests.yml/badge.svg)
+
 # 💰 Persistent Finance Tracker
 
 A robust, full-stack personal finance dashboard built with **Python**, **Streamlit**, and **SQLAlchemy**. This application allows users to manage their finances, track expenses, and visualize their balance history with ease. It features a dual-database system for seamless switching between real personal data and a generated demo environment.
